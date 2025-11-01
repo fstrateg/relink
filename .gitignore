@@ -1,0 +1,19 @@
+# Игнорируем всё, кроме app и tests
+*
+
+# Не игнорируем сам файл .gitignore
+!.gitignore
+
+# Разрешаем app и tests
+!app/
+!tests/
+
+# Разрешаем все файлы и каталоги в app и tests, кроме явно исключенных
+!app/**/*
+!tests/**/*
+
+# Явно игнорируем .idea и Config в любой вложенности
+app/.idea/
+app/.idea/**
+app/Config/
+app/Config/**

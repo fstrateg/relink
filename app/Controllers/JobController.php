@@ -15,4 +15,11 @@ class JobController extends Controller
         return $this->response->setJSON(['status' => 'success']);
     }
 
+    public function decodeWebhook():ResponseInterface
+    {
+        $task = new TaskService();
+        $task->decodeWebhookRecords();
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
 }

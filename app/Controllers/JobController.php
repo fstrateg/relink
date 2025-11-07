@@ -8,10 +8,10 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class JobController extends Controller
 {
-    public function firstTouch():ResponseInterface
+    public function processRecords():ResponseInterface
     {
         $task = new TaskService();
-        $task->createTasks();
+        $task->analizeNewRecords();
         return $this->response->setJSON(['status' => 'success']);
     }
 

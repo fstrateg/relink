@@ -2,13 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\RecordsModel;
 use App\Models\WebhookModel;
 
 class TaskService
 {
-    public function createTasks()
+    public function analizeNewRecords()
     {
-        // Implementation for creating tasks
+        $model= new RecordsModel();
+        $model->ProcessNewRecords();
     }
 
     public function decodeWebhookRecords(): void

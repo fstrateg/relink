@@ -25,15 +25,20 @@ class CreateRefusedClients extends Migration
             'record_date' => [
                 'type' => 'DATE',
             ],
+            'record_id' => [
+                'type' => 'INT',
+            ],
             'amount' => [
                 'type'       => 'DECIMAL',
                 'constraint' => '10,2',
                 'default'    => 0.00,
             ],
+            'state'=> [
+                'type'       => 'CHAR',
+                'constraint' => '2',
+            ],
             'created_at' => [
                 'type'    => 'DATETIME',
-                'null'    => false,
-                'default' => 'CURRENT_TIMESTAMP',
             ],
         ]);
 

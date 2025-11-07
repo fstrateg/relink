@@ -17,7 +17,7 @@ class WebhookModel
             ->getResultArray();
         if (count($results)==0) return;
         $db=Database::connect(); // Switch back to default connection
-        $model=new RefusedClientModel();
+        $model=new RecordsModel();
         foreach ($results as $row) {
             // Process each record (for demonstration, we'll just print it)
             echo "Processing record ID: " . $row['id'] . "\n";

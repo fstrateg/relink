@@ -12,6 +12,7 @@ final class PersistRefused
         $vl=[
             'record_id' => $data['record_id'],
             'client_name' => $data['client_name'],
+            'client_id' => $data['client_id'],
             'phone' => $data['phone'],
             'record_date' => $data['record_date'],
             'amount' => $data['amount'],
@@ -31,6 +32,7 @@ final class PersistRefused
         $vl=[
             'record_id' => $data['record_id'],
             'client_name' => $data['client_name'],
+            'client_id' => $data['client_id'],
             'phone' => $data['phone'],
             'record_date' => $data['record_date'],
             'amount' => $data['amount'],

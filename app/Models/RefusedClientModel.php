@@ -13,6 +13,7 @@ class RefusedClientModel extends Model
     protected $allowedFields = [
         'client_name',
         'phone',
+        'client_id',
         'record_date',
         'record_id',
         'amount',

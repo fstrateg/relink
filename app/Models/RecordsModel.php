@@ -14,6 +14,7 @@ class RecordsModel extends Model
     protected $allowedFields = [
         'client_name',
         'phone',
+        'client_id',
         'attendance',
         'record_date',
         'record_id',

@@ -26,6 +26,7 @@ class WebhookModel
             if ($data['resource']!='record') continue;
             $client=$data['data']['client'];
             if (empty($client)) continue;
+            if (!isset($client['id'])) continue;
             $services=$data['data']['services'] ?? [];
             $services_list=[];
             $amount=0;
@@ -42,6 +43,7 @@ class WebhookModel
             $model->upsert([
                 'record_id' => $data['data']['id'],
                 'client_name' => $client['name'] ?? '',
+                'client_id' => $client['id'] ?? 0,
                 'phone' => $client['phone'] ?? '',
                 'record_date' => $data['data']['date'],
                 'attendance' => $data['data']['attendance'],

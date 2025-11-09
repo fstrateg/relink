@@ -20,6 +20,7 @@ class RecordsModel extends Model
         'record_id',
         'amount',
         'services',
+        'filial_id',
         'oper',
         'done'];
 

@@ -16,7 +16,10 @@ class RefusedClientModel extends Model
         'client_id',
         'record_date',
         'record_id',
+        'filial_id',
+        'services',
         'amount',
         'state',
+        'done'
     ];
 }

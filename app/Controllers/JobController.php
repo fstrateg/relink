@@ -22,4 +22,11 @@ class JobController extends Controller
         return $this->response->setJSON(['status' => 'success']);
     }
 
+    public function createTasks():ResponseInterface
+    {
+        $task = new TaskService();
+        $task->createRefusalTasks();
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
 }

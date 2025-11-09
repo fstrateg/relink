@@ -22,4 +22,4 @@ app/.idea/
 app/.idea/**
 app/Config/
 app/Config/**
-/tests/http/http-client.private.env.json
+/tests/http/*

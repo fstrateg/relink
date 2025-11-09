@@ -15,6 +15,8 @@ final class PersistRefused
             'client_id' => $data['client_id'],
             'phone' => $data['phone'],
             'record_date' => $data['record_date'],
+            'filial_id' => $data['filial_id'],
+            'services' => $data['services'],
             'amount' => $data['amount'],
             'state' => 'RE',
         ];
@@ -35,6 +37,8 @@ final class PersistRefused
             'client_id' => $data['client_id'],
             'phone' => $data['phone'],
             'record_date' => $data['record_date'],
+            'filial_id' => $data['filial_id'],
+            'services' => $data['services'],
             'amount' => $data['amount'],
             'state' => 'DE',
         ];

@@ -28,12 +28,6 @@ class WebhookModel
             if (empty($client)) continue;
             if (!isset($client['id'])) continue;
             $services=$data['data']['services'] ?? [];
-            $services_list=[];
-            $amount=0;
-            foreach ($services as $service) {
-                $services_list[]=$service['id'];
-                $amount += $service['cost'] ?? 0;
-            }
             $oper=match ($data['status']) {
                 'create' => 'AP',
                 'update' => 'ED',
@@ -42,13 +36,13 @@ class WebhookModel
             };
             $model->upsert([
                 'record_id' => $data['data']['id'],
+                'filial_id' => $data['data']['company_id'] ?? 0,
                 'client_name' => $client['name'] ?? '',
                 'client_id' => $client['id'] ?? 0,
                 'phone' => $client['phone'] ?? '',
                 'record_date' => $data['data']['date'],
                 'attendance' => $data['data']['attendance'],
-                'services' => implode(',', $services_list),
-                'amount' => $amount,
+                'services' => json_encode($services,JSON_UNESCAPED_UNICODE),
                 'oper'=> $oper,
                 'done'      => 0,
             ]);

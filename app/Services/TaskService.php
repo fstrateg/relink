@@ -48,14 +48,15 @@ class TaskService
                 'RE'=>'Клиент не пришел:',
                 'DE'=>'Запись удалена:'
             };
-            $yougile->createTask(
+
+            $rez=$yougile->createTask(
                 $case.' ' . $rec['client_name'],
                 $msg,
                 $columnId
             );
 
             // Отметить запись как обработанную
-            $refusedModel->update($rec['record_id'], ['done' => 1]);
+            $refusedModel->update($rec['record_id'], ['done' => 1, 'yid' => $rez['id']]);
         }
     }
 }

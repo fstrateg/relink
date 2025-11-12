@@ -19,6 +19,7 @@ class RefusedClientModel extends Model
         'filial_id',
         'services',
         'amount',
+        'yid',
         'state',
         'done'
     ];

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\RecordsModel;
 use App\Models\RefusedClientModel;
 use App\Models\WebhookModel;
+use CodeIgniter\Database\Config;
 
 class TaskService
 {
@@ -26,8 +27,13 @@ class TaskService
         $records = $refusedModel->where('done', 0)->findAll();
         $yougile = new YougileService();
         $columnId = config("Yougile")->ColumnId;
-        $db = \Config\Database::connect();
+        $db=Config::connect();
         foreach ($records as $rec) {
+            if ($this->NewRecordExists($rec['client_id'])) {
+                // Если у клиента есть новые записи, пропускаем создание задачи
+                $refusedModel->update($rec['record_id'], ['done' => 1]);
+                continue;
+            }
             // Логика создания задачи
             $fils=$db->table('filial')->where('id', $rec['filial_id'])->get()->getRowArray();
             $case=match ($rec['state']){
@@ -62,6 +68,15 @@ class TaskService
 
     public function NewRecordExists($clientID):bool
     {
-        //TODO: проверить есть ли у нас новые активные записи по клиенту
+        //Проверяем есть ли у нас новые активные записи по клиенту
+        $db=Config::connect();
+        $rez=$db->query("select count(*) cnt from records where
+                          client_id=?
+                          and record_date>now()
+                          and oper<>'DE'
+                          and attendance<>2", [$clientID])->getResult();
+
+        return $rez[0]->cnt>0;
+
     }
 }

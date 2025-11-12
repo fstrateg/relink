@@ -41,7 +41,7 @@ class RecordsModel extends Model
 
     public function ProcessNewRecords()
     {
-        $recs=$this->where('done', 0)->findAll(20);
+        $recs=$this->where('done', 0)->findAll();
         foreach ($recs as $rec) {
             // Здесь должна быть логика обработки записи
             if ($rec['oper']=='DE') {

@@ -48,4 +48,14 @@ final class PersistRefused
         }
         $refusedModel->insert($vl);
     }
+
+    public static function handleNew(array $data): void
+    {
+        //TODO: удалить запись из отказников если клиент записался вновь
+        $refusedModel = new RefusedClientModel();
+        $rec=$refusedModel->where('record_id', $data['record_id'])->first();
+        if ($rec) {
+            $refusedModel->delete($rec['id']);
+        }
+    }
 }

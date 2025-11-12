@@ -59,4 +59,9 @@ class TaskService
             $refusedModel->update($rec['record_id'], ['done' => 1, 'yid' => $rez['id']]);
         }
     }
+
+    public function NewRecordExists($clientID):bool
+    {
+        //TODO: проверить есть ли у нас новые активные записи по клиенту
+    }
 }

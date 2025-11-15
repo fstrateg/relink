@@ -58,7 +58,8 @@ class TaskService
             $rez=$yougile->createTask(
                 $case.' ' . $rec['client_name'],
                 $msg,
-                $columnId
+                $columnId,
+                ['stickers'=>json_decode($fils['ysticker_id'])]
             );
 
             // Отметить запись как обработанную
@@ -74,7 +75,7 @@ class TaskService
                           client_id=?
                           and record_date>now()
                           and oper<>'DE'
-                          and attendance<>2", [$clientID])->getResult();
+                          and attendance<>-1", [$clientID])->getResult();
 
         return $rez[0]->cnt>0;
 

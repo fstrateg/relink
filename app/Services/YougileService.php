@@ -39,13 +39,15 @@ class YougileService
     /**
      * Создание новой задачи в YouGile
      */
-    public function createTask(string $title, string $description, string $columnId): ?array
+    public function createTask(string $title, string $description, string $columnId, array $others=[]): ?array
     {
         $payload = [
             'title' => $title,
             'description' => $description,
             'columnId' => $columnId,
         ];
+
+        $payload = array_merge($payload,$others);
 
        return $this->post('tasks', $payload);
     }

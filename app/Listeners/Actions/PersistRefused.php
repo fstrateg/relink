@@ -43,7 +43,7 @@ final class PersistRefused
             'state' => 'DE',
         ];
         if ($rec) {
-            $refusedModel->update($rec['id'],  $vl);
+            $refusedModel->update($rec['record_id'],  $vl);
             return;
         }
         $refusedModel->insert($vl);
@@ -53,9 +53,9 @@ final class PersistRefused
     {
         //TODO: удалить запись из отказников если клиент записался вновь
         $refusedModel = new RefusedClientModel();
-        $rec=$refusedModel->where('record_id', $data['record_id'])->first();
-        if ($rec) {
-            $refusedModel->delete($rec['id']);
-        }
+        $rec=$refusedModel->where('record_id', $data['client_id'])->orderBy('record_date', 'DESC')->first();
+        if (!$rec) return;
+        if (empty($rec['yid'])) return;
+        
     }
 }

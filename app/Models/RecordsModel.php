@@ -46,7 +46,7 @@ class RecordsModel extends Model
             // Здесь должна быть логика обработки записи
             if ($rec['oper']=='DE') {
                 Events::trigger('record.delete', $rec);
-            }elseif ($rec['attendance']==2) {
+            }elseif ($rec['attendance']==-1) {
                 Events::trigger('record.refuse', $rec);
             }
             // Для демонстрации просто отметим запись как обработанную

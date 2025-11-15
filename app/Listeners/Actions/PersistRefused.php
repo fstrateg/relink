@@ -21,7 +21,7 @@ final class PersistRefused
             'state' => 'RE',
         ];
         if ($rec) {
-            $refusedModel->update($rec['id'],  $vl);
+            $refusedModel->update($rec['record_id'],  $vl);
             return;
         }
         $refusedModel->insert($vl);

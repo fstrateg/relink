@@ -2,6 +2,7 @@
 namespace App\Listeners\Actions;
 
 use App\Models\RefusedClientModel;
+use App\Services\YougileService;
 
 final class PersistRefused
 {
@@ -53,9 +54,39 @@ final class PersistRefused
     {
         //TODO: удалить запись из отказников если клиент записался вновь
         $refusedModel = new RefusedClientModel();
-        $rec=$refusedModel->where('record_id', $data['client_id'])->orderBy('record_date', 'DESC')->first();
+        $rec = $refusedModel->where('client_id', $data['client_id'])->orderBy('record_date', 'DESC')->first();
         if (!$rec) return;
-        if (empty($rec['yid'])) return;
-        
+        if ($data['record_date'] >= $rec['record_date']) {
+            if ($rec['done'] == 0) {
+                $refusedModel->delete($rec['record_id']);
+                return;
+            }
+            if (!empty($rec['yid'])&&$rec['done']==1) {
+                $yougile = new YougileService();
+                $task = $yougile->getTask($rec['yid']);
+                if (isset($task['id'])) {
+                    $task['completed'] = true;
+                    $task['title'] .= ' (Найдена новая запись)';
+                    $task['description'] .= self::createAddMessage($data);
+                    $newtask=array_filter($task,function ($key){
+                        return !in_array($key,['id','timestamp','createdBy','type']);
+                    }, ARRAY_FILTER_USE_KEY);
+                    $yougile->UpdateTask($rec['yid'], $newtask);
+                    $refusedModel->update($rec['record_id'], ['done' => 2]);
+                }
+            };
+
+        }
+    }
+    private static function createAddMessage($data):string
+    {
+        $msg='<hr>Новая дата записи: '.$data['record_date'].'<br>';
+        $services=json_decode($data['services'],true);
+        $msg.="Услуги:<br/>";
+        foreach ($services as $service)
+        {
+            $msg.=$service['title']."  ".$service['cost']."<br>";
+        }
+        return $msg;
     }
 }

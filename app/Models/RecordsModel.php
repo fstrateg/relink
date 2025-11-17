@@ -48,6 +48,8 @@ class RecordsModel extends Model
                 Events::trigger('record.delete', $rec);
             }elseif ($rec['attendance']==-1) {
                 Events::trigger('record.refuse', $rec);
+            }else {
+                Events::trigger('record.new', $rec);
             }
             // Для демонстрации просто отметим запись как обработанную
             $this->update($rec['record_id'], ['done' => 1]);

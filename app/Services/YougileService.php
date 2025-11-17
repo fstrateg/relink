@@ -36,6 +36,29 @@ class YougileService
         log_message('error', 'YouGile API error: ' . $response->getStatusCode() . ' — ' . $response->getBody());
         return null;
     }
+
+    private function put($command, $payload): ?array
+    {
+        $response = $this->client->put("$this->api/$command", ['json' => $payload]);
+
+        if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
+            return json_decode($response->getBody(), true);
+        }
+
+        log_message('error', 'YouGile API error: ' . $response->getStatusCode() . ' — ' . $response->getBody());
+        return null;
+    }
+
+    private function get($command):?array
+    {
+        $response = $this->client->get("$this->api/$command");
+        if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
+            return json_decode($response->getBody(), true);
+        }
+
+        log_message('error', 'YouGile API error: ' . $response->getStatusCode() . ' — ' . $response->getBody());
+        return null;
+    }
     /**
      * Создание новой задачи в YouGile
      */
@@ -50,5 +73,15 @@ class YougileService
         $payload = array_merge($payload,$others);
 
        return $this->post('tasks', $payload);
+    }
+
+    public function getTask(string $taskId)
+    {
+        return $this->get("tasks/$taskId");
+    }
+
+    public function UpdateTask(string $taskId, array $task)
+    {
+        return $this->put("tasks/$taskId", $task);
     }
 }

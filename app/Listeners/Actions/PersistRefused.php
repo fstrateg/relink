@@ -54,7 +54,7 @@ final class PersistRefused
     {
         //TODO: удалить запись из отказников если клиент записался вновь
         $refusedModel = new RefusedClientModel();
-        $rec = $refusedModel->where('client_id', $data['client_id'])->orderBy('record_date', 'DESC')->first();
+        $rec = $refusedModel->where('phone', $data['phone'])->orderBy('record_date', 'DESC')->first();
         if (!$rec) return;
         if ($data['record_date'] >= $rec['record_date']) {
             if ($rec['done'] == 0) {

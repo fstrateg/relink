@@ -69,8 +69,12 @@ final class PersistRefused
                     $task['title'] .= ' (Найдена новая запись)';
                     $task['description'] .= self::createAddMessage($data);
                     $newtask=array_filter($task,function ($key){
-                        return !in_array($key,['id','timestamp','createdBy','type']);
+                        return !in_array($key,['id','timestamp','createdBy','type',
+                            'completedTimestamp']);
                     }, ARRAY_FILTER_USE_KEY);
+                    //print_r($task);
+                    //print_r($newtask);
+                    //exit();
                     $yougile->UpdateTask($rec['yid'], $newtask);
                     $refusedModel->update($rec['record_id'], ['done' => 2]);
                 }
